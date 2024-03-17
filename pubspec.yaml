@@ -1,0 +1,108 @@
+name: alinas_app
+description: "A new Flutter project."
+
+# Prevent accidental publishing to pub.dev.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  community_material_icon: ^5.9.55
+  shared_preferences: ^2.0.15
+  http: ^0.13.4
+  provider: ^6.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Enable generation of localized Strings from arb files.
+  generate: true
+
+  assets:
+    # Add assets from the images directory to the application.
+    - assets/images/
+    - assets/images/I_Love_You_Alina_icon.png
+
+    # Add assets from the audio directory to the application.
+    - assets/audio/
+    - assets/audio/myExternalCause/000_introduction.m4a
+    - assets/audio/myExternalCause/001_anatomy_of_everything.m4a
+    - assets/audio/myExternalCause/002_my_love.m4a
+    - assets/audio/myExternalCause/003_my_happiness.m4a
+    - assets/audio/myExternalCause/004_my_strength.m4a
+    - assets/audio/myExternalCause/005_my_inspiration_and_my_motivation.m4a
+    - assets/audio/myExternalCause/006_my_peace.m4a
+    - assets/audio/myExternalCause/007_my_home.m4a
+    - assets/audio/myExternalCause/outro_part_1.m4a
+    - assets/audio/myExternalCause/outro_part_2.m4a
+    - assets/audio/theDreamyMan/dream1.mp3
+    - assets/audio/theJudge/Chapter1.mp3
+    - assets/audio/theJudge/Chapter2.m4a
+    - assets/audio/theJudge/TheJudge_Chapter3.mp3
+
+  fonts:
+    - family: Angelina
+      fonts:
+        - asset: fonts/angelina.regular.ttf
+    - family: Bauhaus
+      fonts:
+        - asset: fonts/bauhausstd-heavy.ttf
+        - asset: fonts/bauhausstd-light.ttf
+        - asset: fonts/bauhausstd-medium.ttf
+    - family: Corruption
+      fonts:
+        - asset: fonts/corruption-regular.otf
+    - family: Frank
+      fonts:
+        - asset: fonts/frank.ttf
+    - family: Hummingbird
+      fonts:
+        - asset: fonts/hummingbird.ttf
+    - family: Lobster
+      fonts:
+        - asset: fonts/Lobster-Regular.ttf
+    - family: Lobster2
+      fonts:
+        - asset: fonts/LobsterTwo-Bold.ttf
+        - asset: fonts/LobsterTwo-Regular.ttf
+    - family: NexaScript
+      fonts:
+        - asset: fonts/NexaScriptHeavy.otf
+        - asset: fonts/NexaScriptLight.otf
+    - family: Ananias
+      fonts:
+        - asset: fonts/nf-ananias-bold.ttf
+        - asset: fonts/nf-ananias-regular.ttf
+    - family: NotoSerif
+      fonts:
+        - asset: fonts/NotoSerif.ttf
+    - family: Prata
+      fonts:
+        - asset: fonts/Prata-Regular.ttf
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Bold.ttf
+        - asset: fonts/Roboto-Regular.ttf
+    - family: RoyalCrescent
+      fonts:
+        - asset: fonts/royal_crescent.otf
+    - family: ShadowsIntoLight
+      fonts:
+        - asset: fonts/ShadowsIntoLight-Regular.ttf
+    - family: Ubuntu
+      fonts:
+        - asset: fonts/Ubuntu-Bold.ttf
+        - asset: fonts/Ubuntu-Regular.ttf
