@@ -111,6 +111,32 @@ Map<int, String> bookImageIds = {
   4: 'Love_Drunk_front_cover_',
 };
 
+// Fonts
+const List<String> fonts = <String>[
+  'NexaScript',
+  'Angelina',
+  'Ananias',
+  'Bauhaus',
+  'Frank',
+  'Hummingbird',
+  'Corruption',
+  'Roboto',
+  'NotoSerif',
+  'Ubuntu',
+];
+const List<String> fontIds = <String>[
+  'nexa',
+  'angelina',
+  'ananias',
+  'bauhaus_medium',
+  'frank',
+  'hummingbird',
+  'corruption',
+  'roboto',
+  'serif',
+  'ubuntu',
+];
+
 /// A class that many Widgets can interact with to read user settings, update
 /// user settings, or listen to user settings changes.
 ///
@@ -130,6 +156,10 @@ class SettingsController with ChangeNotifier {
   late ThemeData? _theme;
   late String _themeString;
   late String _bookId;
+  late List<String> _fonts;
+  late List<String> _fontIds;
+  late String _font;
+  late String _fontId;
 
   // Allow Widgets to read the user's preferred ThemeMode.
   ThemeMode get themeMode => _themeMode;
@@ -137,6 +167,10 @@ class SettingsController with ChangeNotifier {
   ThemeData? get theme => _theme;
   String get themeString => _themeString;
   String get bookId => _bookId;
+  List<String> get fonts => _fonts;
+  List<String> get fontIds => _fontIds;
+  String get font => _font;
+  String get fontId => _fontId;
 
   /// Load the user's settings from the SettingsService. It may load from a
   /// local database or the internet. The controller only knows it can load the
@@ -152,6 +186,8 @@ class SettingsController with ChangeNotifier {
       _theme == customThemeData[CustomTheme.sun] ? sunString :
       _theme == customThemeData[CustomTheme.beach] ? beachString : purpleString;
     _bookId = await _settingsService.bookId();
+    // _fontId = await _settingsService.fontId();
+    _font = await _settingsService.font();
 
     // Important! Inform listeners a change has occurred.
     notifyListeners();
@@ -213,5 +249,20 @@ class SettingsController with ChangeNotifier {
     // Persist the changes to a local database or the internet using the
     // SettingService.
     await _settingsService.updateBookId(newBookId);
+  }
+
+  Future<void> updateFont(String newFont) async {
+    if (newFont == _font) return;
+
+    _font = newFont;
+    // _fontId = fontIds[fonts.indexOf(newFont)];
+
+    // Important! Inform listeners a change has occurred.
+    notifyListeners();
+
+    // Persist the changes to a local database or the internet using the
+    // SettingService.
+    await _settingsService.updateFont(newFont);
+    // await _settingsService.updateFontId(_fontId);
   }
 }

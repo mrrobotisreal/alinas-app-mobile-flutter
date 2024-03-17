@@ -23,6 +23,10 @@ class SettingsService {
 
   Future<String> bookId() async => theDreamyMan;
 
+  Future<String> fontId() async => 'nexa';
+
+  Future<String> font() async => 'NexaScript';
+
   /// Persists the user's preferred ThemeMode to local or remote storage.
   Future<void> updateThemeMode(ThemeMode theme) async {
     // Use the shared_preferences package to persist settings locally or the
@@ -44,5 +48,19 @@ class SettingsService {
     // http package to persist settings over the network.
     // final prefs = await SharedPreferences.getInstance();
     // await prefs.setString('bookId', bookId);
+  }
+
+  Future<void> updateFontId(String fontId) async {
+    // Use the shared_preferences package to persist settings locally or the
+    // http package to persist settings over the network.
+    // final prefs = await SharedPreferences.getInstance();
+    // await prefs.setString('fontId', fontId);
+  }
+
+  Future<void> updateFont(String font) async {
+    // Use the shared_preferences package to persist settings locally or the
+    // http package to persist settings over the network.
+    // final prefs = await SharedPreferences.getInstance();
+    // await prefs.setString('font', font);
   }
 }

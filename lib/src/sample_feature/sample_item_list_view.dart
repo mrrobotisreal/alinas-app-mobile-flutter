@@ -1,3 +1,4 @@
+import 'package:alinas_app/src/photos/photos_main_view.dart';
 import 'package:alinas_app/src/sample_feature/book_image.dart';
 import 'package:alinas_app/src/settings/settings_controller.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class SampleItemListView extends StatefulWidget {
 /// Displays a list of SampleItems.
 class _SampleItemListViewState extends State<SampleItemListView> {
   late SettingsController settings;
+  String _currentFont = 'NexaScript';
 
   int _selectedBookIndex = 0;
 
@@ -32,6 +34,12 @@ class _SampleItemListViewState extends State<SampleItemListView> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     settings = Provider.of<SettingsController>(context, listen: true);
+
+    if (settings.font != _currentFont) {
+      setState(() {
+        _currentFont = settings.font;
+      });
+    }
   }
 
   void _handleNextBook() {
@@ -70,7 +78,7 @@ class _SampleItemListViewState extends State<SampleItemListView> {
             ),
           ),
           child: AppBar(
-            title: const Text('Main Menu', style: TextStyle(fontFamily: 'NexaScript', fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white)),
+            title: Text('Main Menu', style: TextStyle(fontFamily: _currentFont, fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white)),
             backgroundColor: Colors.transparent,
             actions: [
               IconButton(
@@ -89,41 +97,6 @@ class _SampleItemListViewState extends State<SampleItemListView> {
           ),
         ),
       ),
-
-      // To work with lists that may contain a large number of items, it’s best
-      // to use the ListView.builder constructor.
-      //
-      // In contrast to the default ListView constructor, which requires
-      // building all Widgets up front, the ListView.builder constructor lazily
-      // builds Widgets as they’re scrolled into view.
-      // body: ListView.builder(
-      //   // Providing a restorationId allows the ListView to restore the
-      //   // scroll position when a user leaves and returns to the app after it
-      //   // has been killed while running in the background.
-      //   restorationId: 'sampleItemListView',
-      //   itemCount: items.length,
-      //   itemBuilder: (BuildContext context, int index) {
-      //     final item = items[index];
-
-      //     return ListTile(
-      //       title: Text('SampleItem ${item.id}'),
-      //       leading: const CircleAvatar(
-      //         // Display the Flutter Logo image asset.
-      //         // foregroundImage: AssetImage('assets/images/flutter_logo.png'),
-      //         foregroundImage: AssetImage('assets/images/I_Love_You_Alina_icon.png'),
-      //       ),
-      //       onTap: () {
-      //         // Navigate to the details page. If the user leaves and returns to
-      //         // the app after it has been killed while running in the
-      //         // background, the navigation stack is restored.
-      //         Navigator.restorablePushNamed(
-      //           context,
-      //           SampleItemDetailsView.routeName,
-      //         );
-      //       }
-      //     );
-      //   },
-      // ),
       body: const Center(
         child: Padding(
           padding: EdgeInsets.fromLTRB(0, 8.0, 0, 8.0),
@@ -149,7 +122,7 @@ class _SampleItemListViewState extends State<SampleItemListView> {
               IconButton(onPressed: () {
                 showModalBottomSheet(context: context, builder: (BuildContext context) {
                   return Container(
-                    height: 600,
+                    height: 1000,
                     color: Theme.of(context).colorScheme.primary,
                     child: Center(
                       child: Padding(
@@ -158,8 +131,153 @@ class _SampleItemListViewState extends State<SampleItemListView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            const Text('Epic bottom drawer dude!', style: TextStyle(color: Colors.black,),),
-                            ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Close', style: TextStyle(color: Colors.black),),),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(color: Colors.white, width: 6.0),
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: SizedBox(
+                                width: 300.0,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.restorablePushNamed(context, PhotosMainView.routeName);
+                                  },
+                                  child: Text(
+                                    'Photos 📸',
+                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(color: Colors.white, width: 6.0),
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: SizedBox(
+                                width: 300.0,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text(
+                                    'Read 📖',
+                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(color: Colors.white, width: 6.0),
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: SizedBox(
+                                width: 300.0,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text(
+                                    'Listen 🎧',
+                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(color: Colors.white, width: 6.0),
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: SizedBox(
+                                width: 300.0,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text(
+                                    'Watch 📺',
+                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(color: Colors.white, width: 6.0),
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: SizedBox(
+                                width: 300.0,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text(
+                                    'Notes ✍🏻',
+                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(color: Colors.white, width: 6.0),
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: SizedBox(
+                                width: 300.0,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.restorablePushNamed(context, SettingsView.routeName);
+                                  },
+                                  child: Text(
+                                    'Settings ⚙️',
+                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

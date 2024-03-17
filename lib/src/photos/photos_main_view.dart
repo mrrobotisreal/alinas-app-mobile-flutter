@@ -1,62 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-import 'settings_controller.dart';
+import '../settings/settings_controller.dart';
 
 enum ContainerPosition { hidden, left, center, right, }
 
-class SettingsView extends StatefulWidget {
-  const SettingsView({super.key, required this.controller});
+class PhotosMainView extends StatefulWidget {
+  const PhotosMainView({super.key, required this.controller});
 
-  static const routeName = '/settings';
+  static const routeName = '/photos';
   final SettingsController controller;
 
   @override
-  State<SettingsView> createState() => _SettingsViewState();
+  State<PhotosMainView> createState() => _PhotosMainViewState();
 }
 
-/// Displays the various settings that can be customized by the user.
-///
-/// When a user changes a setting, the SettingsController is updated and
-/// Widgets that listen to the SettingsController are rebuilt.
-class _SettingsViewState extends State<SettingsView> {
-  static const List<String> _fonts = <String>[
-    'NexaScript',
-    'Angelina',
-    'Ananias',
-    'Bauhaus',
-    'Frank',
-    'Hummingbird',
-    'Corruption',
-    'Roboto',
-    'NotoSerif',
-    'Ubuntu',
+class _PhotosMainViewState extends State<PhotosMainView> {
+  static const List<String> _albums = <String>[
+    'Portugal\n(with my love ❤️)',
+    '📸 Portugal Photoshoot\n(with My Love ❤️)',
+    'Austria\n(with my love ❤️)',
+    'Paris\n(❤️🗽 with my love 🗼🎄)',
+    'Frankfurt\n(with my Love ❤️)',
   ];
-  static const List<String> _languages = <String>[
-    'English 🇺🇸',
-    'Russian 🇷🇺',
-    'Ukrainian 🇺🇦',
-    'French 🇫🇷',
-    'German 🇩🇪',
-    'Hebrew 🇮🇱',
-    'Vietnamese 🇻🇳',
-    'Chinese CN 🇨🇳',
-    'Chinese TW 🇹🇼',
-  ];
-  static const List<String> _themes = <String>[
-    'Purple Theme 💜',
-    'Coral Theme 🪸',
-    'Mint Theme 🌿',
-    'Rose Theme 🌹',
-    'Ocean Theme 🌊',
-    'Sun Theme ☀️',
-    'Beach Theme 🏖️',
-  ];
+  ContainerPosition _containerPosition = ContainerPosition.hidden;
   late SettingsController controller;
-  ContainerPosition _visibleContainer = ContainerPosition.hidden;
   Color? _lightColor;
   String _currentFont = 'NexaScript';
+  ContainerPosition _visibleContainer = ContainerPosition.hidden;
 
   @override
   void initState() {
@@ -120,7 +93,7 @@ class _SettingsViewState extends State<SettingsView> {
           ),
           child: AppBar(
             backgroundColor: Colors.transparent,
-            title: Text('Settings', style: TextStyle(fontFamily: _currentFont, fontWeight: FontWeight.bold, color: Colors.white, fontSize: 40.0),),
+            title: Text('Photos... 📸', style: TextStyle(fontFamily: _currentFont, fontWeight: FontWeight.bold, color: Colors.white, fontSize: 40.0),),
           ),
         ),
       ),
@@ -160,9 +133,9 @@ class _SettingsViewState extends State<SettingsView> {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: ListView.builder(
-                      itemCount: _fonts.length,
+                      itemCount: _albums.length,
                       itemBuilder: (BuildContext context, int index) {
-                        String font = _fonts[index];
+                        String font = _albums[index];
                         return Padding(
                           padding: const EdgeInsets.fromLTRB(6.0, 8.0, 6.0, 8.0),
                           child: Container(
@@ -178,10 +151,10 @@ class _SettingsViewState extends State<SettingsView> {
                                   backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
                                   shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
                                 ),
-                                onPressed: () => controller.updateFont(font),
+                                onPressed: () {},
                                 child: Text(
                                   font,
-                                  style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: font,),
+                                  style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
                                 ),
                               ),
                             ),
@@ -228,35 +201,7 @@ class _SettingsViewState extends State<SettingsView> {
                       border: Border.all(color: Colors.white, width: 8.0),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
-                    child: ListView.builder(
-                      itemCount: _languages.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(6.0, 8.0, 6.0, 8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondary,
-                              border: Border.all(color: Colors.white, width: 6.0),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            child: SizedBox(
-                              width: 300.0,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                  shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                ),
-                                onPressed: () {},
-                                child: Text(
-                                  _languages[index],
-                                  style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    child: Text('Center Container', style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,)),
                   ),
                 ),
               ),
@@ -295,58 +240,7 @@ class _SettingsViewState extends State<SettingsView> {
                       border: Border.all(color: Colors.white, width: 8.0),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
-                    child: ListView.builder(
-                      itemCount: _themes.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(6.0, 8.0, 6.0, 8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondary,
-                              border: Border.all(color: Colors.white, width: 6.0),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            child: SizedBox(
-                              width: 300.0,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                  shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                ),
-                                onPressed: () {
-                                  switch (_themes[index]) {
-                                    case 'Purple Theme 💜':
-                                      controller.updateTheme(customThemeData[CustomTheme.purple]);
-                                      break;
-                                    case 'Coral Theme 🪸':
-                                      controller.updateTheme(customThemeData[CustomTheme.coral]);
-                                      break;
-                                    case 'Mint Theme 🌿':
-                                      controller.updateTheme(customThemeData[CustomTheme.mint]);
-                                      break;
-                                    case 'Rose Theme 🌹':
-                                      controller.updateTheme(customThemeData[CustomTheme.rose]);
-                                      break;
-                                    case 'Ocean Theme 🌊':
-                                      controller.updateTheme(customThemeData[CustomTheme.ocean]);
-                                      break;
-                                    case 'Sun Theme ☀️':
-                                      controller.updateTheme(customThemeData[CustomTheme.sun]);
-                                      break;
-                                    case 'Beach Theme 🏖️':
-                                      controller.updateTheme(customThemeData[CustomTheme.beach]);
-                                      break;}
-                                },
-                                child: Text(
-                                  _themes[index],
-                                  style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    child: Text('Right Container', style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,)),
                   ),
                 ),
               ),
@@ -379,7 +273,7 @@ class _SettingsViewState extends State<SettingsView> {
                   shadowColor: MaterialStateProperty.all(Colors.black),
                   elevation: MaterialStateProperty.all<double>(_visibleContainer == ContainerPosition.left ? 12.0 : 0.0),
                 ),
-                icon: const Icon(CommunityMaterialIcons.format_font, color: Colors.white),
+                icon: const Icon(Icons.photo_album, color: Colors.white),
               ),
               IconButton(
                 onPressed: () => _toggleContainer(_visibleContainer == ContainerPosition.center ? ContainerPosition.hidden : ContainerPosition.center),
@@ -390,7 +284,7 @@ class _SettingsViewState extends State<SettingsView> {
                   shadowColor: MaterialStateProperty.all(Colors.black),
                   elevation: MaterialStateProperty.all<double>(_visibleContainer == ContainerPosition.center ? 12.0 : 0.0),
                 ),
-                icon: const Icon(CommunityMaterialIcons.google_translate, color: Colors.white),
+                icon: const Icon(Icons.camera, color: Colors.white),
               ),
               IconButton(
                 onPressed: () => _toggleContainer(_visibleContainer == ContainerPosition.right ? ContainerPosition.hidden : ContainerPosition.right),
