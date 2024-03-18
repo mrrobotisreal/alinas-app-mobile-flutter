@@ -8,6 +8,7 @@ import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 import 'photos/photos_main_view.dart';
+import 'reading/reader_main_view.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -77,6 +78,8 @@ class MyApp extends StatelessWidget {
                       return const SampleItemDetailsView();
                     case PhotosMainView.routeName:
                       return PhotosMainView(controller: settingsController);
+                    case ReaderMainView.routeName:
+                      return ReaderMainView(controller: settingsController);
                     case SampleItemListView.routeName:
                     default:
                       return SampleItemListView();

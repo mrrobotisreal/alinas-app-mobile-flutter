@@ -1,4 +1,5 @@
 import 'package:alinas_app/src/photos/photos_main_view.dart';
+import 'package:alinas_app/src/reading/reader_main_view.dart';
 import 'package:alinas_app/src/sample_feature/book_image.dart';
 import 'package:alinas_app/src/settings/settings_controller.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +22,8 @@ class SampleItemListView extends StatefulWidget {
 /// Displays a list of SampleItems.
 class _SampleItemListViewState extends State<SampleItemListView> {
   late SettingsController settings;
+  Color? _lightColor;
   String _currentFont = 'NexaScript';
-
   int _selectedBookIndex = 0;
 
   @override
@@ -34,6 +35,30 @@ class _SampleItemListViewState extends State<SampleItemListView> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     settings = Provider.of<SettingsController>(context, listen: true);
+
+    switch (settings.themeString) {
+      case 'purple':
+        _lightColor = alinasAppPurple[50];
+        break;
+      case 'coral':
+        _lightColor = alinasAppCoral[50];
+        break;
+      case 'mint':
+        _lightColor = alinasAppMint[50];
+        break;
+      case 'rose':
+        _lightColor = alinasAppRose[50];
+        break;
+      case 'ocean':
+        _lightColor = alinasAppOcean[50];
+        break;
+      case 'sun':
+        _lightColor = alinasAppSun[50];
+        break;
+      case 'beach':
+        _lightColor = alinasAppBeach[50];
+        break;
+    }
 
     if (settings.font != _currentFont) {
       setState(() {
@@ -78,6 +103,7 @@ class _SampleItemListViewState extends State<SampleItemListView> {
             ),
           ),
           child: AppBar(
+            iconTheme: const IconThemeData(color: Colors.white),
             title: Text('Main Menu', style: TextStyle(fontFamily: _currentFont, fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white)),
             backgroundColor: Colors.transparent,
             actions: [
@@ -123,162 +149,180 @@ class _SampleItemListViewState extends State<SampleItemListView> {
                 showModalBottomSheet(context: context, builder: (BuildContext context) {
                   return Container(
                     height: 1000,
-                    color: Theme.of(context).colorScheme.primary,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      border: const Border(
+                        top: BorderSide(
+                          color: Colors.white,
+                          width: 8.0,
+                        ),
+                      ),
+                    ),
                     child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(32.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(color: Colors.white, width: 6.0),
-                                borderRadius: BorderRadius.circular(50.0),
-                              ),
-                              child: SizedBox(
-                                width: 300.0,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.restorablePushNamed(context, PhotosMainView.routeName);
-                                  },
-                                  child: Text(
-                                    'Photos 📸',
-                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: _lightColor,
+                          border: Border.all(color: Colors.white, width: 8.0),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(color: Colors.white, width: 6.0),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                child: SizedBox(
+                                  width: 300.0,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.restorablePushNamed(context, PhotosMainView.routeName);
+                                    },
+                                    child: Text(
+                                      'Photos 📸',
+                                      style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(color: Colors.white, width: 6.0),
-                                borderRadius: BorderRadius.circular(50.0),
+                              const SizedBox(
+                                height: 10.0,
                               ),
-                              child: SizedBox(
-                                width: 300.0,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                  ),
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text(
-                                    'Read 📖',
-                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(color: Colors.white, width: 6.0),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                child: SizedBox(
+                                  width: 300.0,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.restorablePushNamed(context, ReaderMainView.routeName);
+                                    },
+                                    child: Text(
+                                      'Read 📖',
+                                      style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(color: Colors.white, width: 6.0),
-                                borderRadius: BorderRadius.circular(50.0),
+                              const SizedBox(
+                                height: 10.0,
                               ),
-                              child: SizedBox(
-                                width: 300.0,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                  ),
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text(
-                                    'Listen 🎧',
-                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(color: Colors.white, width: 6.0),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                child: SizedBox(
+                                  width: 300.0,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text(
+                                      'Listen 🎧',
+                                      style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(color: Colors.white, width: 6.0),
-                                borderRadius: BorderRadius.circular(50.0),
+                              const SizedBox(
+                                height: 10.0,
                               ),
-                              child: SizedBox(
-                                width: 300.0,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                  ),
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text(
-                                    'Watch 📺',
-                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(color: Colors.white, width: 6.0),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                child: SizedBox(
+                                  width: 300.0,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text(
+                                      'Watch 📺',
+                                      style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(color: Colors.white, width: 6.0),
-                                borderRadius: BorderRadius.circular(50.0),
+                              const SizedBox(
+                                height: 10.0,
                               ),
-                              child: SizedBox(
-                                width: 300.0,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                  ),
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text(
-                                    'Notes ✍🏻',
-                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(color: Colors.white, width: 6.0),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                child: SizedBox(
+                                  width: 300.0,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text(
+                                      'Notes ✍🏻',
+                                      style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(color: Colors.white, width: 6.0),
-                                borderRadius: BorderRadius.circular(50.0),
+                              const SizedBox(
+                                height: 10.0,
                               ),
-                              child: SizedBox(
-                                width: 300.0,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.restorablePushNamed(context, SettingsView.routeName);
-                                  },
-                                  child: Text(
-                                    'Settings ⚙️',
-                                    style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(color: Colors.white, width: 6.0),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                child: SizedBox(
+                                  width: 300.0,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.restorablePushNamed(context, SettingsView.routeName);
+                                    },
+                                    child: Text(
+                                      'Settings ⚙️',
+                                      style: TextStyle(color: Colors.white, fontSize: 24.0, fontFamily: _currentFont,),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

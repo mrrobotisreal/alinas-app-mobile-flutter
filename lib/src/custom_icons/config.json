@@ -1,0 +1,22 @@
+{
+  "name": "",
+  "css_prefix_text": "",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "f2600038cee14a5eaad6d3ae5a3d5119",
+      "css": "book",
+      "code": 61485,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "359a92b6c5badb367007940e3c8f6e1e",
+      "css": "book_open",
+      "code": 62744,
+      "src": "fontawesome5"
+    }
+  ]
+}

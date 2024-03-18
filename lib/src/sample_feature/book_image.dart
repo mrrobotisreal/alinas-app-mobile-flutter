@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:typed_data';
@@ -28,8 +27,6 @@ class _ImageFromServerState extends State<ImageFromServer> {
   ImageProvider? _loveDrunkImage;
   String _loveDrunkImageString = 'http://3.76.7.134:9090/assets/backgrounds/Love_Drunk_front_cover_ocean.png';
   String _currentBookImageString = 'http://3.76.7.134:9090/assets/backgrounds/The_Dreamy_Man_front_cover_ocean.png';
-  // ImageProvider _currentBookImage = NetworkImage(_currentBookImageString);
-  Image? _currentBookImage;
 
   @override
   void initState() {
